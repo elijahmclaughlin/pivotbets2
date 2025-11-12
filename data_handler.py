@@ -4,11 +4,9 @@ import os
 from datetime import datetime
 import numpy as np
 
-# --- Supabase Connection ---
-# IMPORTANT: These secrets MUST be set as environment variables on Hostinger
+# -- Supabase Connection
 def init_connection():
     """Initializes a connection to the Supabase client using environment variables."""
-    # Use os.environ.get() to safely read environment variables
     url = os.environ.get("SUPABASE_URL")
     key = os.environ.get("SUPABASE_KEY")
 
@@ -21,13 +19,11 @@ def init_connection():
 try:
     supabase = init_connection()
 except ValueError as e:
-    # In a real deployed app, you'd log this error and maybe fail gracefully
     print(f"Connection Error: {e}")
-    supabase = None # Set to None if connection fails
+    supabase = None
 
-# --- Data Fetching Functions ---
+# -- Data Fetching Functions
 
-# Helper function to execute Supabase query
 def execute_supabase_query(table_name, select_query="*", order_col="gameday", order_desc=False):
     if not supabase:
         return pd.DataFrame()
@@ -75,7 +71,7 @@ def fetch_header_data(table_name):
     """Fetches results for accuracy headers (no specific ordering needed)."""
     return execute_supabase_query(table_name, select_query="*", order_col=None)
 
-# --- Date Format Function (Retained for server-side preprocessing) ---
+# -- Date Format Function
 def format_gameday(date_str):
     """Formats a date string/object to 'Weekday, Month DD'."""
     try:
@@ -87,7 +83,7 @@ def format_gameday(date_str):
     except (ValueError, TypeError):
         return str(date_str)
 
-# Add a function to format data for JSON output, handling potential non-serializable types
+# JSON output function to format data
 def prepare_df_for_json(df):
     """Converts DataFrame to JSON records, applying formatting needed for frontend."""
     if df.empty:
