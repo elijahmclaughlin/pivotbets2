@@ -8,10 +8,10 @@ from data_handler import (
 from flask_cors import CORS
 import os
 
-app = Flask(__name__, static_folder='.') # Set up app to serve static files from current directory
-CORS(app) # Enable Cross-Origin Resource Sharing
+app = Flask(__name__, static_folder='.')
+CORS(app)
 
-# --- API Endpoints ---
+# API Endpoints
 
 @app.route('/api/dashboard/performance', methods=['GET'])
 def get_performance_data():
@@ -26,7 +26,6 @@ def get_league_results(league):
     df = fetch_header_data(table_name)
     
     if not df.empty:
-        # We only expect one row for the overall results
         return jsonify(df.iloc[0].to_dict())
     return jsonify({}), 404
 
@@ -36,24 +35,16 @@ def get_league_games(league):
     table_name = f"{league.lower()}_games"
     df = fetch_data(table_name)
     
-    # prepare_df_for_json will also handle date formatting for the frontend
     return jsonify(prepare_df_for_json(df))
 
 # --- Serve Static Files (Frontend) ---
 
-# This route serves the index.html file as the main page
+# Home page route
 @app.route('/')
 def serve_index():
     return send_from_directory(app.static_folder, 'index.html')
 
-# This route serves all other static files (CSS, JS)
+# Static files route
 @app.route('/<path:path>')
 def serve_static_files(path):
     return send_from_directory(app.static_folder, path)
-
-
-if __name__ == '__main__':
-    # For local testing, ensure you set the env vars locally
-    # e.g., export SUPABASE_URL="your_url"
-    print("WARNING: Running in development mode. Set environment variables for production.")
-    app.run(debug=True, port=5000)
