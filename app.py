@@ -37,7 +37,7 @@ def get_league_games(league):
     
     return jsonify(prepare_df_for_json(df))
 
-# --- Serve Static Files (Frontend) ---
+# Frontend
 
 # Home page route
 @app.route('/')
