@@ -16,7 +16,7 @@ body {
 
 .app-header h1 {
     margin: 0;
-    color: #4CAF50; /* A Streamlit-like green */
+    color: #4CAF50;
 }
 
 .button-link {
@@ -34,7 +34,7 @@ body {
     background-color: #45a049;
 }
 
-/* --- Tabs --- */
+/* Tabs */
 .tabs-container {
     padding: 1rem 2rem 0;
     background-color: white;
@@ -57,12 +57,12 @@ body {
     font-weight: bold;
 }
 
-/* --- Main Content Area --- */
+/* Main Content Area */
 #app-content {
     padding: 2rem;
 }
 
-/* --- Accuracy Metrics (Homepage) --- */
+/* Homepage */
 .accuracy-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -90,10 +90,10 @@ body {
 
 .metric strong {
     float: right;
-    color: #1a73e8; /* Metric highlight color */
+    color: #1a73e8;
 }
 
-/* --- Game Cards --- */
+/* Game Cards */
 .game-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -134,14 +134,14 @@ body {
 
 .prediction-result {
     padding: 5px 0;
-    color: #4CAF50; /* Success/Prediction color */
+    color: #4CAF50;
 }
 
 .prediction-result strong {
     font-weight: 700;
 }
 
-/* --- Charts --- */
+/* Charts */
 .chart-container {
     background-color: #ffffff;
     padding: 20px;
