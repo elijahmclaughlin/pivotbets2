@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PivotBets Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header class="app-header">
+        <h1>PivotBets Dashboard</h1>
+        <a href="https://www.pivotbets.com" target="_blank" class="button-link">Visit PivotBets!</a>
+        <hr>
+    </header>
+
+    <div class="tabs-container">
+        <button class="tab-button active" data-league="home">Homepage</button>
+        <button class="tab-button" data-league="nfl">NFL Games</button>
+        <button class="tab-button" data-league="nba">NBA Games</button>
+        <button class="tab-button" data-league="cfb">College Football</button>
+        <button class="tab-button" data-league="mbb">Men's College Basketball</button>
+    </div>
+
+    <main id="app-content">
+        </main>
+</body>
+</html>
