@@ -1,7 +1,6 @@
 // main.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // API is hosted on the same domain, so we use a relative path
     const API_BASE_URL = '/api'; 
     const contentArea = document.getElementById('app-content');
     const LEAGUES = {
@@ -11,11 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'mbb': "Men's College Basketball"
     };
 
-    // --- Event Listeners for Tabs ---
     document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', (e) => {
             const league = e.target.dataset.league;
-            // Update active tab class
             document.querySelector('.tab-button.active')?.classList.remove('active');
             e.target.classList.add('active');
             loadContent(league);
@@ -25,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load
     loadContent('home');
 
-    // --- Main Content Loader ---
     function loadContent(league) {
         contentArea.innerHTML = '<p class="loading">Loading ' + league.toUpperCase() + ' Data...</p>';
         if (league === 'home') {
@@ -35,9 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Homepage Renderer (Accuracy Headers & Charts) ---
+    // -- Homepage Renderer
     async function renderHomePage() {
-        // Fetch All Accuracy Headers
         let headerHtml = '<h2>Overall Model Accuracy</h2><div class="accuracy-grid">';
         
         const leaguePromises = Object.keys(LEAGUES).map(async (key) => {
@@ -86,12 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Chart Renderer (Using Chart.js) ---
+    // -- Chart Renderer
     function renderCharts(data) {
         const labels = Array.from(new Set(data.map(d => d.game_week_start.split('T')[0]))).sort();
         const leagues = Array.from(new Set(data.map(d => d.league)));
         
-        // Helper to get datasets for a specific metric
         const getDatasets = (metric, factor = 1) => {
             return leagues.map(league => {
                 const leagueData = data.filter(d => d.league === league);
@@ -109,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
-        // 1. Profit Chart
+        // Profit Chart
         new Chart(document.getElementById('profitChart'), {
             type: 'line',
             data: {
@@ -118,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // 2. Accuracy Chart
+        // Accuracy Chart
         new Chart(document.getElementById('accuracyChart'), {
             type: 'line',
             data: {
@@ -138,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Game Predictions Renderer ---
+    // -- Game Predictions
     async function fetchGamePredictions(league) {
         try {
             const response = await fetch(`${API_BASE_URL}/games/${league}`);
@@ -160,9 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
         html += '<div class="game-cards-container">'; 
 
         games.forEach(row => {
-            // Note: row.gameday_formatted is available because we pre-formatted it in data_handler.py
             
-            // Build the card HTML (recreating st.container(border=True) logic)
+            // Gameday card
             html += `
                 <div class="game-card">
                     <h3 class="card-title">${row.away_team_name} @ ${row.home_team_name}</h3>
